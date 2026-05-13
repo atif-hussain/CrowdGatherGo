@@ -349,7 +349,7 @@
 
           <div class="hero-stats" aria-label="Headline impact">
             <div class="stat">
-              <div class="stat-n">500<span class="unit">/day</span></div>
+              <div class="stat-n">500<span class="unit">trains/day</span></div>
               <div class="stat-l">Train slots per corridor</div>
             </div>
             <div class="stat">
@@ -535,7 +535,7 @@
               <line x1="60" y1="40" x2="60" y2="310"/>
               <line x1="60" y1="310" x2="500" y2="310"/>
             </g>
-            <text x="20" y="180" fill="#5a6280" font-size="11" transform="rotate(-90 28 180)" font-family="JetBrains Mono, monospace">Distance →</text>
+            <text x="-20" y="170" fill="#5a6280" font-size="11" transform="rotate(-90 28 180)" font-family="JetBrains Mono, monospace">← Distance </text>
             <text x="240" y="335" fill="#5a6280" font-size="11" font-family="JetBrains Mono, monospace">Time (5-min slots) →</text>
 
             <!-- stations -->
@@ -566,29 +566,35 @@
 
             <!-- Parallel uniform-speed trains (5-min spacing) -->
             <g stroke="url(#trainGrad)" stroke-width="2.5" fill="none" opacity=".85">
-              <path d="M 100 80 L 220 290"/>
-              <path d="M 140 80 L 260 290"/>
-              <path d="M 180 80 L 300 290"/>
-              <path d="M 260 80 L 380 290"/>
-              <path d="M 300 80 L 420 290"/>
-              <path d="M 340 80 L 460 290"/>
+              <path d="M 100 80 L 220 290" stroke-dasharray="6 4"/>
+              <path d="M 140 80 L 260 290" stroke-dasharray="6 4"/>
+              <path d="M 180 80 L 300 290" stroke-dasharray="6 4"/>
+              <path d="M 260 80 L 380 290" stroke-dasharray="6 4"/>
+              <path d="M 300 80 L 420 290" stroke-dasharray="6 4"/>
+              <path d="M 340 80 L 460 290" stroke-dasharray="6 4"/>
             </g>
 
-            <!-- Express overtaking at Stn B (slow stops on loop) -->
+            <!-- Slow waits at Stn C while express overtakes. Time is x-axis, distance is y-axis,
+                 so the stop must be a horizontal segment (time passes, distance unchanged). -->
             <g>
-              <path d="M 220 80 L 240 150 L 240 175 L 300 290" stroke="#16d39a" stroke-width="3" fill="none"/>
-              <circle cx="240" cy="162" r="3.5" fill="#16d39a"/>
-              <text x="248" y="166" font-size="10" fill="#0d8f6a" font-family="JetBrains Mono, monospace">slow waits on loop</text>
-              <path d="M 230 80 L 320 220 L 410 290" stroke="#ff8a3d" stroke-width="2.5" fill="none" stroke-dasharray="6 4"/>
-              <text x="338" y="208" font-size="10" fill="#c4571a" font-family="JetBrains Mono, monospace">express overtakes</text>
+              <!-- slow train: starts at Stn A LEFT of express, waits horizontally at Stn C,
+                   then resumes and arrives at Stn D RIGHT of express -->
+              <path d="M 180 80 L 250 200 L 260 210 L 280 220 L 320 220 L 340 230 L 350 240 L 380 290" stroke="#16d39a" stroke-width="3" fill="none"/>
+              <circle cx="260" cy="220" r="3.5" fill="#16d39a"/>
+              <circle cx="340" cy="220" r="3.5" fill="#16d39a"/>
+              <text x="230" y="200" font-size="10" fill="#0d8f6a" font-family="JetBrains Mono, monospace">slow waits in loop line</text>
+
+              <!-- express train: unchanged, passes through Stn C while slow is still waiting -->
+              <path d="M 220 80 L 300 220 L 340 290" stroke="#ff8a3d" stroke-width="2.5" fill="none" />
+              <text x="270" y="250" font-size="10" fill="#c4571a" font-family="JetBrains Mono, monospace">express overtakes</text>
             </g>
 
             <!-- legend -->
             <g font-family="Plus Jakarta Sans" font-size="11">
               <rect x="60" y="20" width="14" height="3" fill="#7aa3ff"/>
-              <text x="80" y="24" fill="#5a6280">Slot train</text>
+              <text x="80" y="24" fill="#5a6280">Train slot(s)</text>
               <rect x="160" y="20" width="14" height="3" fill="#16d39a"/>
-              <text x="180" y="24" fill="#5a6280">Slow (loop-stops)</text>
+              <text x="180" y="24" fill="#5a6280">Slow (stops in loop)</text>
               <rect x="320" y="20" width="14" height="3" fill="#ff8a3d"/>
               <text x="340" y="24" fill="#5a6280">Express (overtakes)</text>
             </g>

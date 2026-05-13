@@ -1,3 +1,9 @@
+Go through about-me.md and mobility-ecosystem.md , and design for me a powerful 2-sided business card for CrowdGatherGo company, with back side reversed to capturing all the 3 value propositions
+
+
+Go through about-me.md and mobility-ecosystem.md from "E:\Claude-Work\About-Me\" folder, and design a website for my CrowdGatherGo company, showcasing all the 3 value propositions - long distance rail throughput, easing city interchanges, last-mile crowd connectivity - contents for which can be found in E:\Claude-Work\Projects under subfolders - Indian-Railways-Throughput, Road-TRAFFIC-improvements, CrowdGatherGo. Create outputs in E:\Claude-Work\Outputs folder.
+
+
 All anchors present, all 3 value-prop sections in place, nav targets resolve.Used a toolUsed a toolView the CrowdGatherGo website
 Single-page site, modern tech-startup style, with:
 
@@ -14,3 +20,4 @@ Partners — three audience-segmented CTAs (Railway / Traffic Dept / Event Organ
 Contact — email, phone, LinkedIn from about-me.md
 
 Just open the file in any browser — no build step, no dependencies. To deploy, drop index.html on any static host (GitHub Pages, Netlify, Cloudflare Pages) and point crowdgathergo.com at it.
+
