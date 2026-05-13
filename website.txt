@@ -1,0 +1,16 @@
+All anchors present, all 3 value-prop sections in place, nav targets resolve.Used a toolUsed a toolView the CrowdGatherGo website
+Single-page site, modern tech-startup style, with:
+
+Hero — tagline "Move more people, without moving more steel" + headline stats (500 slots/day, 2× junction throughput, 5min shuttle roundtrips)
+Three value-prop sections, each with a custom inline SVG diagram:
+
+Rail throughput — time-distance chart showing 5-min slots with loop-line overtakes
+City interchanges — Greenshield's speed-flow curve + butterfly/U-turn schematic
+Last-mile — capacity-vs-cost comparison + multi-door road-wagon illustration
+
+
+Approach — 4-step "Study → Model → Pilot → Scale" loop
+Partners — three audience-segmented CTAs (Railway / Traffic Dept / Event Organisers) wired to pre-filled mailto links
+Contact — email, phone, LinkedIn from about-me.md
+
+Just open the file in any browser — no build step, no dependencies. To deploy, drop index.html on any static host (GitHub Pages, Netlify, Cloudflare Pages) and point crowdgathergo.com at it.
