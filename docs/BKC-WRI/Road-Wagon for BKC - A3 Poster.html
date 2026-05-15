@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Road-Wagon for BKC — A3 Poster</title>
+<style>
+  /* Print to A3 portrait → produces a single-page PDF for WRI submission.
+     In Chrome/Edge: File → Print → Destination "Save as PDF",
+     Paper "A3", Layout "Portrait", Margins "None", Scale "Default", Background graphics ✓. */
+  @page {
+    size: A3 portrait;
+    margin: 0;
+  }
+  :root{
+    --navy:#0a0f1f; --ink:#0b1437; --paper:#ffffff;
+    --wash:#f4f6fc; --line:#dde3f1;
+    --brand:#3a6df0; --brand2:#7aa3ff;
+    --go:#16d39a; --go-d:#0d8f6a;
+    --warn:#ff8a3d; --warn-d:#c4571a;
+    --purp:#7c5cff; --purp-d:#5a3edb;
+    --blue:#3a6df0; --blue-d:#1f4ad1;
+    --muted:#5a6280; --red:#ef4444;
+  }
+  *{ box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  html,body{ margin:0; padding:0; background:#e9ecf3; }
+  body{ font-family: "Inter","Segoe UI","Helvetica Neue",Arial,sans-serif; color:var(--ink); }
+
+  .page{
+    width: 297mm;
+    height: 420mm;
+    margin: 0 auto;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+
+  /* ===== Header band ===== */
+  .hdr{
+    position:absolute; inset: 0 0 auto 0; height: 44mm;
+    background: var(--navy);
+    color:#fff; padding: 8mm 10mm;
+  }
+  .hdr h1{ margin:0; font-size:30pt; font-weight:800; letter-spacing:-.02em; line-height:1.05; }
+  .hdr .tag{ margin-top:1mm; font-size:13.5pt; font-style:italic; color:var(--brand2); }
+  .hdr .stripe{ position:absolute; left:0; right:0; bottom:0; height:2.5mm; background: var(--go); }
+
+  .hdr .chip{
+    position:absolute; right:10mm; top:9mm;
+    padding: 1.5mm 4mm; border:1px solid var(--go); border-radius:9mm;
+    color: var(--go); font-weight:700; font-size:9pt; letter-spacing:.04em;
+  }
+  .hdr .brand{
+    position:absolute; left:10mm; top:10mm; display:flex; align-items:center; gap:3mm;
+  }
+  .hdr .brand .logo-box{
+    width:13mm; height:13mm; border-radius:2mm;
+    background: linear-gradient(160deg, #F5C24A, #E8693C);
+    display:grid; place-items:center;
+    box-shadow: 0 1mm 2mm rgba(232,105,60,0.45);
+  }
+  .hdr .brand .logo-box svg{ width:10mm; height:10mm; }
+  .hdr .brand .wordmark{ line-height:1; }
+  .hdr .brand .wordmark .nm{
+    font-size:13pt; font-weight:800; letter-spacing:.01em; color:#fff;
+  }
+  .hdr .brand .wordmark .nm span{ color:#F5C24A; }
+  .hdr .brand .wordmark .tag{
+    margin-top:1.2mm; font-size:7pt; letter-spacing:.18em; text-transform:uppercase;
+    color:rgba(255,246,229,0.78);
+  }
+
+  /* ===== Submitter row ===== */
+  .sub{
+    position:absolute; left:0; right:0; top:44mm; height:7mm;
+    background: var(--wash);
+    padding: 1.6mm 10mm; font-size: 9.5pt; color: var(--muted);
+  }
+
+  /* ===== Problem / Proposal twin cards ===== */
+  .twin{
+    position:absolute; left:10mm; right:10mm; top:56mm;
+    display:grid; grid-template-columns: 1fr 1fr; gap:3mm;
+  }
+  .twin .card{
+    border:1px solid var(--line); border-radius:2mm; padding: 3mm 3mm;
+    background:#fff; height:30mm;
+  }
+  .twin .lbl{ font-size:9pt; font-weight:800; letter-spacing:.04em; margin-bottom:1.5mm; }
+  .twin .lbl.r{ color: var(--red); }
+  .twin .lbl.g{ color: var(--go-d); }
+  .twin p{ margin:0; font-size:9.5pt; line-height:1.35; }
+
+  /* ===== Section title pattern ===== */
+  .sec-title{
+    position:absolute; left:10mm; font-size:10pt; font-weight:800;
+    color:var(--muted); letter-spacing:.05em; text-transform:uppercase;
+  }
+  .sec-sub{
+    position:absolute; left:10mm; font-size:10.5pt; color:var(--ink);
+  }
+
+  /* ===== Main map ===== */
+  .map{
+    position:absolute; left:10mm; right:10mm; top:104mm; height:138mm;
+    background: var(--wash);
+    border:1px solid var(--line); border-radius:2mm;
+    overflow:hidden;
+  }
+  .map .basemap{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:contain; object-position:center;
+    background:#eef3f7;
+  }
+
+  .legend{
+    position:absolute; left:8mm; top:8mm; width:64mm;
+    background:rgba(255,255,255,0.94); border:1px solid var(--line); border-radius:1.5mm;
+    padding: 2mm 2.5mm; font-size:8.5pt; backdrop-filter: blur(2px);
+  }
+  .legend .row{ display:flex; align-items:center; gap:2.5mm; margin: 0.6mm 0; }
+  .legend .sw{ width:8mm; height:1.6mm; border-radius:1mm; }
+  .legend .sw.p{ background:var(--purp); }
+  .legend .sw.b{ background:var(--blue); }
+  .legend .pin{ width:3.4mm; height:3.4mm; border-radius:50%; background:var(--red); border:1px solid #fff; }
+  .legend b.p{ color: var(--purp-d); }
+  .legend b.b{ color: var(--blue-d); }
+
+  .compass{
+    position:absolute; right:6mm; top:5mm; font-size:7.5pt; color:var(--ink); text-align:right;
+    background:rgba(255,255,255,0.85); padding:1mm 1.5mm; border-radius:1mm;
+  }
+
+  /* ===== Route options cards ===== */
+  .routes{
+    position:absolute; left:10mm; right:10mm; top:254mm;
+    display:grid; grid-template-columns: 1fr 1fr 1fr; gap:2.5mm;
+  }
+  .routes .card{ border-radius:2mm; background:#fff; height:50mm; overflow:hidden; }
+  .routes .head{ padding: 1.6mm 3mm; color:#fff; font-weight:800; font-size:9.5pt; }
+  .routes .head .sub{ font-weight:600; font-size:8pt; opacity:.85; }
+  .routes .body{ padding: 1.8mm 2.6mm 2.6mm; font-size:8.6pt; line-height:1.3; }
+  .routes .r0{ border:1px solid #E8693C; }
+  .routes .r0 .head{ background: linear-gradient(135deg, #F5C24A, #E8693C); }
+  .routes .r0 .kpi{ color:#c4571a; }
+  .routes .r1{ border:1px solid var(--purp); }
+  .routes .r1 .head{ background: var(--purp); }
+  .routes .r2{ border:1px solid var(--blue); }
+  .routes .r2 .head{ background: var(--blue); }
+  .routes ul{ margin:0.8mm 0 0; padding-left:3.8mm; }
+  .routes li{ margin: 0.3mm 0; }
+  .routes .kpi{ font-weight:800; }
+  .routes .r1 .kpi{ color: var(--purp-d); }
+  .routes .r2 .kpi{ color: var(--blue-d); }
+  .routes .ital{ font-style:italic; color:var(--muted); font-size:7.6pt; margin-top:1.2mm; line-height:1.3; }
+  .routes .upside{
+    margin-top:1.4mm; padding:1.4mm 2mm;
+    background: #f4f0ff; border-left:1.2mm solid var(--purp);
+    font-size:8pt; line-height:1.3; border-radius:1mm;
+  }
+  .routes .upside b{ color: var(--purp-d); }
+  .routes .r2 .upside{ background:#eef2ff; border-left-color: var(--blue); }
+  .routes .r2 .upside b{ color: var(--blue-d); }
+
+  /* ===== Vehicle strip ===== */
+  .veh{
+    position:absolute; left:10mm; right:10mm; top:316mm; height:36mm;
+    background:#fff; border:1px solid var(--line); border-radius:2mm;
+    padding: 2mm 3mm;
+    display:grid; grid-template-columns: 130mm 1fr; gap:4mm;
+  }
+  .bus-wrap{ position:relative; }
+  .bus-wrap .lbl-top{ font-size:7pt; color:var(--warn-d); margin-bottom:1mm; }
+  .bus-wrap .lbl-top span.p{ color:var(--purp-d); margin-left:6mm; }
+  .veh .v-kpis{ display:grid; grid-template-columns: repeat(3,1fr); gap:1.5mm; }
+  .veh .v-kpi{
+    background: var(--wash); border:1px solid var(--line);
+    border-radius:1.2mm; padding: 1.5mm 1mm; text-align:center;
+  }
+  .veh .v-kpi .n{ font-size:11pt; font-weight:800; color:var(--ink); }
+  .veh .v-kpi .l{ font-size:7.5pt; color:var(--muted); }
+
+  /* ===== Pilot Impact ===== */
+  .impact{
+    position:absolute; left:10mm; right:10mm; top:364mm;
+    display:grid; grid-template-columns: repeat(4,1fr); gap:3mm;
+  }
+  .impact .tile{
+    background:#fff; border:1px solid var(--line); border-radius:2mm;
+    height:24mm; padding-top:3mm; text-align:center; position:relative; overflow:hidden;
+  }
+  .impact .tile::before{
+    content:""; position:absolute; left:0; right:0; top:0; height:3mm;
+  }
+  .impact .tile.g::before{ background: var(--go); }
+  .impact .tile.b::before{ background: var(--brand); }
+  .impact .tile.p::before{ background: var(--purp); }
+  .impact .tile.o::before{ background: var(--warn); }
+  .impact .n{ font-size:18pt; font-weight:800; }
+  .impact .l{ font-size:8.5pt; color:var(--muted); margin-top:1.5mm; padding:0 2mm; }
+
+  /* ===== Rollout ===== */
+  .rollout{
+    position:absolute; left:10mm; right:10mm; top:400mm; height:6mm;
+    display:flex; border:1px solid var(--line); border-radius:1mm; overflow:hidden;
+  }
+  .rollout .seg{ height:100%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:7.5pt; font-weight:700; }
+  .rollout .s1{ width:25%; background:var(--go); }
+  .rollout .s2{ width:30%; background:var(--brand); }
+  .rollout .s3{ width:30%; background:var(--warn); }
+  .rollout .s4{ width:15%; background:var(--purp); }
+
+  .rollout-cap{
+    position:absolute; left:10mm; right:10mm; top:393mm; font-size:9.5pt; font-weight:800;
+    color:var(--muted); letter-spacing:.05em; text-transform:uppercase;
+  }
+
+  /* ===== Footer ===== */
+  .partner{
+    position:absolute; left:10mm; right:10mm; top:414mm; height:5.5mm;
+    background:var(--navy); color:#fff; border-radius:1mm;
+    padding: 1.4mm 3mm; font-size:8.5pt; font-weight:700;
+  }
+
+  /* ===== Print rules ===== */
+  @media print{
+    html,body{ background:#fff; }
+    .page{ box-shadow:none; margin:0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page" id="poster">
+
+  <!-- Header -->
+  <div class="hdr">
+    <h1 align="center">ROAD-WAGON for BKC</h1>
+    <div class="brand">
+      <div class="logo-box">
+        <svg viewBox="4 8 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="9" width="24" height="13" rx="3" fill="#0B1F3A"/>
+          <rect x="7" y="12" width="6" height="5" rx="1" fill="#F5C24A"/>
+          <rect x="15" y="12" width="6" height="5" rx="1" fill="#F5C24A"/>
+          <rect x="23" y="12" width="3" height="5" rx="1" fill="#F5C24A"/>
+          <circle cx="10" cy="24" r="2.4" fill="#0B1F3A" stroke="#F5C24A" stroke-width="1.2"/>
+          <circle cx="22" cy="24" r="2.4" fill="#0B1F3A" stroke="#F5C24A" stroke-width="1.2"/>
+          <line x1="2" y1="27.5" x2="30" y2="27.5" stroke="#0B1F3A" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <div class="wordmark">
+        <div class="nm">Crowd<span>Gather</span>Go</div>
+        <div class="tag">Move · Unclog · Disperse</div>
+      </div>
+    </div>
+    <div class="tag" align="center">Frugal high-throughput transit, deployable in 90 days.</div>
+    <div class="chip">WRI · Reimagining BKC · 2026</div>
+    <div class="stripe"></div>
+  </div>
+
+  <!-- Submitter row -->
+  <div class="sub">
+    Submitted by <b>CrowdGatherGo</b> · Atif Hussain (founder) · atif.hussain@gmail.com · +91-78381-73538 · crowdgathergo.com
+  </div>
+
+  <!-- Problem / Proposal cards -->
+  <div class="twin">
+    <div class="card">
+      <div class="lbl r">THE PROBLEM</div>
+      <p>BKC concentrates ~200,000 daily commuters within 3.7 km² peninsula, with <b> poor connectivity </b>. Three transit anchors — Bandra (Western Line), Kurla (Central / Harbour), and the new BKC Metro on Line 3 — sit just outside. The last 1.5 km to office spaces is driven by car or cab, congesting BKC's internal roads every weekday.</p>
+    </div>
+    <div class="card">
+      <div class="lbl g">THE PROPOSAL</div>
+      <p>Deploy <b>patent-pending Road-Wagons</b> (12 m BEV, 1+6 doors, 92 pax) <b>as a BRT</b>, total 14 across two complementary services on existing BKC roads. <br/> Setup: modular 1.1 m raised platforms — installed overnight, No dedicated corridor. <!--Same buses degrade to road-level boarding at minor stops via the stepped nearside door.--></p> <p> Dwell time ~ 30 sec /stop (same as metro). &nbsp;&nbsp;&nbsp;&nbsp;   Speed ~ 1min / 1km congestion-free. </p>
+    </div>
+  </div>
+
+  <!-- Map section -->
+  <div class="sec-title" style="top:90mm">TRANSFORMATION VISION</div>
+  <div class="sec-sub" style="top:95mm">Two route options, one fleet — R1 across perimeter loop, R2 spine connecting stations.</div>
+
+  <div class="map">
+
+    <!-- base map image (slide 3 of Mumbai BKC 2026.pptx — R1 + R2 overlays baked in) -->
+    <img class="basemap" src="Mumbai BKC 2026 slide3.png" alt="BKC map with R1 perimeter loop (purple) and R2 connector spine (blue) marked" />
+
+    <!-- legend overlay -->
+    <div class="legend">
+      <div class="row"><span class="sw p"></span><b class="p">R1 Perimeter ~4.4km/ 9min loop </b></div>
+      <div class="row"><span class="sw b"></span><b class="b">R2 Spine ~5.4km/ 12min 1way</b></div>
+      <div class="row"><span class="pin"></span><span style="color:var(--muted)">Numbered platform stop</span></div>
+    </div>
+    <div class="compass">↑ North</div>
+  </div>
+
+  <!-- Route options cards -->
+  <div class="sec-title" style="top:247mm">ROUTE OPTIONS</div>
+  <div class="routes">
+    <div class="card r0">
+      <div class="head">MINI-PILOT <span class="sub">· entry option</span></div>
+      <div class="body">
+        Lowest-risk proof point: Kurla Stn ↔ BKC Telephone Exchange.
+        <ul>
+          <li>Length: ~1.2 km · 2 platform stops</li>
+          <li>Fleet: 2 Road-Wagons, 2 platforms</li>
+          <li><span class="kpi">&gt; 1,000 vehicles/day off BKC roads</span></li>
+          <li>Conditional on lane priority on this corridor</li>
+        </ul>
+        <div class="ital">Smallest viable footprint to validate boarding-rate &amp; modal-shift assumptions.</div>
+      </div>
+    </div>
+    <div class="card r1">
+      <div class="head">R1 — PERIMETER LOOP</div>
+      <div class="body">
+        Continuous circulator hitting every office cluster on BKC's outer ring.
+        <ul>
+          <li>Length: ~4.4 km · 10 platform stops</li>
+          <li>Round-trip cycle: ~9 min</li>
+          <li>Headway: 90 s (6 buses on route)</li>
+          <li><span class="kpi">Throughput: ~3,700 pphpd</span></li>
+        </ul>
+        <div class="ital">Best for: intra-BKC circulation &amp; peak-hour office distribution.</div>
+      </div>
+    </div>
+    <div class="card r2">
+      <div class="head">R2 — SPINE</div>
+      <div class="body">
+        Shuttle linking BKC Metro ↔ Bandra ↔ Kurla ↔ E. Express Hwy.
+        <ul>
+          <li>~5.4 km one-way · 10 platform stops</li>
+          <li>One-way 12 min · Round-trip 24 min</li>
+          <li>Headway ~3 min (8 buses) · <span class="kpi">~1,840 pphpd</span></li>
+        </ul>
+        <div class="upside"><b>Extendability:</b> double platforms unlock 96 Road-Wagons on R2 — <b>~22,000 pphpd</b>, matching today's average BKC footfall.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vehicle strip -->
+  <div class="sec-title" style="top:309mm">THE VEHICLE</div>
+  <div class="veh">
+    <div class="bus-wrap">
+      <div class="lbl-top">D1 stepped <span class="p">D2 – D4 platform-level doors (mirrored on offside as D5 – D7)</span></div>
+      <!-- SVG bus schematic -->
+      <svg viewBox="0 0 130 30" preserveAspectRatio="xMidYMid meet" style="width:100%;height:80%">
+        <!-- body -->
+        <rect x="2" y="6" width="120" height="16" rx="2.5" fill="#16d39a"/>
+        <!-- windshield -->
+        <rect x="116" y="7.5" width="6" height="6" rx="1" fill="#7aa3ff"/>
+        <!-- windows -->
+        <g fill="#7aa3ff">
+          <rect x="11" y="8" width="12" height="4" rx="0.6"/>
+          <rect x="26" y="8" width="12" height="4" rx="0.6"/>
+          <rect x="41" y="8" width="12" height="4" rx="0.6"/>
+          <rect x="56" y="8" width="12" height="4" rx="0.6"/>
+          <rect x="71" y="8" width="12" height="4" rx="0.6"/>
+          <rect x="86" y="8" width="12" height="4" rx="0.6"/>
+        </g>
+        <!-- doors: D1 stepped (orange) + D2,D3,D4 (dark) -->
+        <rect x="5" y="13" width="6" height="9" rx="0.6" fill="#ff8a3d"/>
+        <rect x="28" y="13" width="6" height="9" rx="0.6" fill="#0b1437"/>
+        <rect x="58" y="13" width="6" height="9" rx="0.6" fill="#0b1437"/>
+        <rect x="88" y="13" width="6" height="9" rx="0.6" fill="#0b1437"/>
+        <!-- wheels -->
+        <circle cx="20" cy="24" r="2.8" fill="#0b1437"/>
+        <circle cx="104" cy="24" r="2.8" fill="#0b1437"/>
+        <!-- platform/road line -->
+        <line x1="0" y1="27" x2="130" y2="27" stroke="#5a6280" stroke-width="0.5"/>
+      </svg>
+      <div style="font-size:7pt; color:var(--muted); font-style:italic; margin-top:0.5mm;">1100 mm platform / road surface</div>
+    </div>
+    <div class="v-kpis">
+      <div class="v-kpi"><div class="n">12 m</div><div class="l">rigid · BEV</div></div>
+      <div class="v-kpi"><div class="n">92</div><div class="l">pax design (32 + 60)</div></div>
+      <div class="v-kpi"><div class="n">1+6</div><div class="l">doors total</div></div>
+      <div class="v-kpi"><div class="n">1100 mm</div><div class="l">platform-level floor</div></div>
+      <div class="v-kpi"><div class="n">250 km</div><div class="l">range, 300 kWh pack</div></div>
+      <div class="v-kpi"><div class="n">~30 s</div><div class="l">dwell at platform stop</div></div>
+    </div>
+  </div>
+
+  <!-- Pilot impact -->
+  <div class="sec-title" style="top:357mm">PILOT IMPACT</div>
+  <div class="impact">
+    <div class="tile g">
+      <div class="n">90 days</div>
+      <div class="l">Deploy first 6 buses + 8 platforms</div>
+    </div>
+    <div class="tile b">
+      <div class="n">~₹40 cr</div>
+      <div class="l">Pilot capex (vs ₹2,500 cr / metro km)</div>
+    </div>
+    <div class="tile p">
+      <div class="n">3,700</div>
+      <div class="l">pphpd per route at 90 s headway</div>
+    </div>
+    <div class="tile o">
+      <div class="n">~10,000</div>
+      <div class="l">Private trips / day off BKC roads</div>
+    </div>
+  </div>
+
+  <!-- Rollout -->
+  <div class="rollout-cap">90-DAY PILOT ROLLOUT</div>
+  <div class="rollout">
+    <div class="seg s1">Days 1–22 · Survey &amp; approvals</div>
+    <div class="seg s2">23–50 · Platforms + 6 buses</div>
+    <div class="seg s3">51–80 · Phased revenue service</div>
+    <div class="seg s4">81–90 · Measure</div>
+  </div>
+
+  <!-- Partner ask -->
+  <div class="partner">
+    PARTNER ASK: MMRDA pilot zone · BKC Office Association sponsored platforms · Private fleet operator for 14 buses · NSE/BSE/banks as anchor patrons
+  </div>
+
+</div>
+
+</body>
+</html>
