@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CrowdGatherGo — Business Card (Full View)</title>
+<style>
+  :root {
+    --night:    #0B1F3A;
+    --rail:     #15356B;
+    --dusk:     #6B2E7A;
+    --ember:    #E8693C;
+    --sun:      #F5C24A;
+    --cream:    #FFF6E5;
+    --ink:      #0A0A0A;
+    --mute:     rgba(255,246,229,0.72);
+    --line:     rgba(255,246,229,0.18);
+    --whatsapp: #25D366;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", "Helvetica Neue", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background:
+      radial-gradient(1200px 600px at 20% 0%, #1a2e55 0%, transparent 60%),
+      radial-gradient(900px 500px at 90% 100%, #3a1c4d 0%, transparent 65%),
+      #0a0f1f;
+    color: var(--cream);
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 40px 20px;
+    gap: 40px;
+  }
+
+  /* Container for both cards */
+  .card-layout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    max-width: 1500px;
+  }
+
+  .card-side {
+    position: relative;
+    width: 700px;          
+    height: 400px;         
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--night) 0%, var(--rail) 35%, var(--dusk) 65%, var(--ember) 90%, var(--sun) 100%);
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.55),
+      0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  .side-label {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sun);
+    margin-top: 2px; margin-bottom: 2px;
+    opacity: 0.8;
+  }
+
+  .flow {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.55;
+  }
+
+  /* ---------- FRONT CONTENT ---------- */
+  .front-grid {
+    position: relative; height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 32px 36px;
+    z-index: 2;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .logo {
+    width: 100px; height: 100px; border-radius: 10px; margin-right: 10px;
+    background: linear-gradient(160deg, var(--sun), var(--ember));
+    display: grid; place-items: center;
+    box-shadow: 0 6px 18px rgba(232,105,60,0.45);
+  }
+  .logo svg { width: 80px; height: 80px; }
+  .brand-text .name {
+    font-size: 60px; font-weight: 700; letter-spacing: 1px;
+    color: #fff; margin-top: -10px;
+  }
+  .brand-text .name span { color: var(--sun); }
+  .brand-text .tag {
+    font-size: 30px; font-weight: 500; letter-spacing: 1px; 
+    color: var(--mute); margin-top: -10px; margin-left: 0px;
+  }
+
+  .hero { align-self: center; }
+  .hero .who {
+    font-size: 28px; font-weight: 700; letter-spacing: 2px; color: #fff;
+    line-height: 1.05; margin-top: 10px; 
+  }
+  .hero .role {
+    font-size: 16px; letter-spacing: 0px; font-weight: 500; 
+    color: var(--sun); margin-top: 8px; margin-top: 2px;
+  }
+  .hero .pitch {
+    font-size: 18px; font-weight: 500; color: var(--mute); max-width: 460px;
+    line-height: 1.2; margin-bottom: 6px; margin-top: 10px;
+  }
+  .hero .tag2 {
+    padding-top: 10px;
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 0px; 
+    font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--mute);
+  }
+  .container { display: flex; }
+  .column { flex: 50%; padding: 10px; }
+
+  .contact {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    font-size: 16px;
+  }
+  .contact a, .contact span { color: var(--cream); text-decoration: none; }
+  .contact .row { display: flex; align-items: center; gap: 8px; }
+  .contact .ico { width: 14px; height: 14px; opacity: 0.85; flex: 0 0 14px; }
+  .contact .ico-wa { color: var(--whatsapp); width: 12px; height: 12px; opacity: 0.8; flex: 0 0 14px; }
+
+  /* ---------- BACK CONTENT ---------- */
+  .back-grid {
+    position: relative; height: 100%;
+    padding: 28px 32px 26px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 14px;
+    z-index: 2;
+  }
+  .back-head {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .back-head .kicker {
+    font-size: 15px; letter-spacing: 3px; text-transform: uppercase; color: var(--sun);
+  }
+  .back-head .url {
+    font-size: 15px; letter-spacing: 1px; color: var(--mute);
+  }
+
+  .pillars {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+  }
+  .pillar {
+    position: relative;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(11,31,58,0.35);
+    backdrop-filter: blur(2px);
+  }
+  .pillar .num {
+    font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    color: var(--sun);
+  }
+  .pillar .metric {
+    font-size: 24px; font-weight: 800; line-height: 1.05;
+    color: #fff; margin-top: 14px; letter-spacing: -0.3px;
+  }
+  .pillar .metric small {
+    display: block; font-size: 14px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--sun); margin-top: 4px;
+  }
+  .pillar .head {
+    font-size: 16px; font-weight: 400; color: #fff; letter-spacing: 1px;
+	margin-top: 20px; line-height: 1.25;
+  }
+  .pillar .desc {
+    font-size: 15px; color: var(--mute); margin-top: 5px; line-height: 1.3; margin-top: 0px; 
+  }
+
+  .back-foot {
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--mute);
+  }
+  .back-foot strong { color: var(--sun); letter-spacing: 2.5px; }
+
+  @media (max-width: 1440px) {
+     /* Allow stacking if screen is too narrow for side-by-side 700px cards */
+    .card-layout { flex-direction: column; align-items: center; }
+  }
+
+  @media (max-width: 760px) {
+    .card-side { width: 92vw; height: calc(92vw * 0.5714); }
+    .hero .who { font-size: 28px; }
+    .pillar .metric { font-size: 18px; }
+    .brand-text .name { font-size: 40px; }
+    .brand-text .tag { font-size: 24px; }
+    .logo { width: 70px; height: 70px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card-layout">
+  
+  <div class="card-wrap">
+    <div class="side-label">Front</div>
+    <div class="card-side">
+      <svg class="flow" viewBox="0 0 700 400" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="fg1" x1="0" x2="1">
+            <stop offset="0" stop-color="#F5C24A" stop-opacity="0"/>
+            <stop offset="0.5" stop-color="#F5C24A" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#E8693C" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!--g stroke="url(#fg1)" fill="none" stroke-width="1.2">
+          <path d="M -50 360 C 200 320 480 300 760 240"/>
+          <path d="M -50 380 C 220 350 500 330 760 270"/>
+          <path d="M -50 320 C 180 290 460 270 760 210"/>
+        </g-->
+        <g stroke="rgba(255,246,229,0.12)" fill="none" stroke-width="0.8" stroke-dasharray="2 6">
+          <path d="M 0 100 L 700 60"/>
+          <path d="M 0 140 L 700 100"/>
+        </g>
+        <g fill="rgba(245,194,74,0.18)">
+          <circle cx="640" cy="60" r="2"/>
+          <circle cx="660" cy="80" r="1.5"/>
+          <circle cx="620" cy="80" r="1"/>
+        </g>
+      </svg>
+
+      <div class="front-grid">
+        <div class="brand">
+          <div class="logo">
+            <svg viewBox="4 8 28 24" fill="none">
+              <rect x="4" y="9" width="24" height="13" rx="3" fill="#0B1F3A"/>
+              <rect x="7" y="12" width="6" height="5" rx="1" fill="#F5C24A"/>
+              <rect x="15" y="12" width="6" height="5" rx="1" fill="#F5C24A"/>
+              <rect x="23" y="12" width="3" height="5" rx="1" fill="#F5C24A"/>
+              <circle cx="10" cy="24" r="2.4" fill="#0B1F3A" stroke="#F5C24A" stroke-width="1.2"/>
+              <circle cx="22" cy="24" r="2.4" fill="#0B1F3A" stroke="#F5C24A" stroke-width="1.2"/>
+              <line x1="2" y1="27.5" x2="30" y2="27.5" stroke="#0B1F3A" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="name">Crowd<span>Gather</span>Go</div>
+            <div class="tag">Innovations in eXtreme Mobility</div>
+          </div>
+        </div>
+
+        <div class="hero">
+          <div class="container">
+            <div class="column">
+              <div class="pitch">Analytically-driven, frugal precision solutions for congestion-free mass movement — across long distance rail, city crossings, last-mile crowds.</div>
+			  <div class="tag2">  <strong> Unclog · Disperse · Move </strong> </div>
+            </div>
+            <div class="column">
+              <div class="who">Atif Hussain</div>
+              <div class="role">Founder & CEO</div>
+              <div class="role">IIT Kanpur, IIM Bangalore</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact">
+          <div class="row">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="m4 6 8 7 8-7"/></svg>
+            <a href="mailto:atif.hussain@gmail.com">atif.hussain@gmail.com</a>
+          </div>
+          <div class="row">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92V21a1 1 0 0 1-1.1 1A19 19 0 0 1 2 4.1 1 1 0 0 1 3 3h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.27 1L7 10.5a16 16 0 0 0 6.5 6.5l1.75-1.82a1 1 0 0 1 1-.27l4 1a1 1 0 0 1 .75 1z"/></svg>
+            <a href="tel:+917838173538">+91 78381 73538</a>
+          </div>
+          <div class="row">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+            <a href="https://crowdgathergo.com">crowdgathergo.com</a>
+          </div>
+          <div class="row">
+            <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22zM8 8h4.37v1.92h.06A4.79 4.79 0 0 1 16.7 7.6c4.55 0 5.39 3 5.39 6.88V22h-4.56v-6.62c0-1.58-.03-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.49V22H8z"/></svg>
+            <a href="https://www.linkedin.com/in/atif-07">/in/atif-07</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-wrap">
+    <div class="side-label">Back</div>
+    <div class="card-side">
+      <svg class="flow" viewBox="0 0 700 400" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="bg1" x1="0" x2="1">
+            <stop offset="0" stop-color="#F5C24A" stop-opacity="0"/>
+            <stop offset="0.5" stop-color="#F5C24A" stop-opacity="0.4"/>
+            <stop offset="1" stop-color="#E8693C" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g stroke="url(#bg1)" fill="none" stroke-width="1">
+          <path d="M -40 50 C 200 80 480 100 760 160"/>
+          <path d="M -40 30 C 200 60 480 80 760 140"/>
+        </g>
+      </svg>
+
+      <div class="back-grid">
+        <div class="back-head">
+          <div class="kicker">Three Pillars · One Mission</div>
+          <div class="url">crowdgathergo.com</div>
+        </div>
+
+        <div class="pillars">
+          <div class="pillar">
+            <div class="num">01 · RAIL</div>
+            <div class="metric">500 trains <small> /route /day</small></div>
+            <div class="head">300s slots table</div>
+            <div class="desc">Speed by Track, not Train. All run at 5-min headway; Express trains overtake slow ones at station-loop.</div>
+          </div>
+
+          <div class="pillar">
+            <div class="num">02 · ROAD</div>
+            <div class="metric">Crossings<small>Preempt Jams </small></div>
+            <div class="head">Highest load Plans </div>
+            <div class="desc">Never U-turns nor 4-way signals; Custom solution to each crossing among several scientific options.</div>
+          </div>
+
+          <div class="pillar">
+            <div class="num">03 · TRANSFERS </div>
+            <div class="metric">Road-wagon<small>Heavy Rail volume</small></div>
+            <div class="head">7door Bus+Platform </div>
+            <div class="desc">Low dwell cuts roundtrip, raises frequency; Ideal for mega events, inter-modal links, daily commutes.</div>
+          </div>
+        </div>
+
+        <div class="back-foot">
+          <span> Innovations in eXtreme Mobility </span>
+          <span>Atif Hussain · IITK, IIMB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
