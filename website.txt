@@ -1,3 +1,10 @@
+https://hpanel.hostinger.com/domain/crowdgathergo.com/dns?tab=dns_records
+Type	Name	Priority	Content	TTL
+CNAME	www	0	atif-hussain.github.io	300	
+A	@	0	185.199.108.153	14400
+
+--------------------------------------------
+
 Go through about-me.md and mobility-ecosystem.md , and design for me a powerful 2-sided business card for CrowdGatherGo company, with back side reversed to capturing all the 3 value propositions
 
 

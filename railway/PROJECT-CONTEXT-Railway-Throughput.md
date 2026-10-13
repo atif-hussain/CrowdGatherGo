@@ -14,7 +14,7 @@ CrowdGatherGo (founder **Atif Hussain**, IIT Kanpur B.Tech CSE + IIM Bangalore M
 - **WhatsComing** (loco-tracking app) = a frugal, RailTel-backed driver gap-awareness layer (treats every track strictly one-way); a complement / pre-stage to formal Kavach. Any safety-bearing role needs **RDSO** clearance.
 
 ## 3. Key numbers
-- **~80 s** running-time lost per stop (decel ~1.5 km + accel ~2.9 km from ~90 km/h) — from `stops-physics.xlsx`; this is the "slot drop."
+- **~5.6 min (at 60 km/h) to ~7.6 min (at 120 km/h)** lost per stop — **decel + accel only, no station dwell**: shed section speed down to 30 km/h, run the full ~900 m loop length at 30 km/h (so the following train's gap isn't cut), halt, then climb back to line speed — from `stops-physics.xlsx`; this is the "slot drop."
 - **~500–576 train-slots/day** per corridor (4 classes: goods/non-stop, Rajdhani/Duronto, superfast/express, local) — from the NDLS–MAS worked model.
 - Line-capacity basis: **~40 coaches/min @ 60 km/h** on a double line (traffic-stream style model).
 - Context figures: rail freight uses **75–90% less energy** than road; rail freight modal share **~27%** vs **45%-by-2030** (National Rail Plan); India net oil-import bill **~$100 bn/yr**, **~89%** crude import-dependent; ABS gives ~2.5-min headway / +15–20% capacity at **~₹2.5 cr/route-km**; track doubling **~₹20 cr/km**.
@@ -29,7 +29,7 @@ CrowdGatherGo (founder **Atif Hussain**, IIT Kanpur B.Tech CSE + IIM Bangalore M
 ## 5. Evidence in hand
 - **NDLS–MAS slot model** — a second-accurate 5-minute-slot Master Chart for New Delhi→Jhansi→Bhopal→Nagpur→Warangal→Vijayawada→Chennai (chart in `IR Throughput Enhancement proposal.pptx`; exported as `ndls-mas-slot-chart.png`).
 - **`stops-physics.xlsx`** — the stop-delay kinematics.
-- **IR precedent:** Western Railway's **Surat–Vadodara** throughput programme (loop extensions into block sections, freight-speed upgrades, automatic signalling/CTC) — same throughput-over-speed philosophy, already done inside IR.
+- **IR precedent:** Western Railway's **Surat–Vadodara** throughput programme (loop extensions into block sections, freight-speed upgrades, automatic signalling/CTC) — applied only the **prerequisites** of this model, not the full throughput-vs-speed-heterogeneity tradeoff (uniform main-line speed on a slot pattern), so it captured a partial gain, not the full one. The prerequisites are proven inside IR; the complete gain is still on the table.
 
 ## 6. Council critique → how it was resolved
 The LLM-council's two load-bearing objections, and the answers now baked into the proposal:
